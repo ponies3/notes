@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { Button } from "~/components/ui/button";
-import { HydrateClient, api } from "~/trpc/server";
+import { HydrateClient, api } from "@/trpc/server";
+import { CreateNewNoteDialog } from "../../components/createNoteButton";
 
 export async function NotesList() {
   const notes = await api.notes.geAll();
@@ -9,9 +8,7 @@ export async function NotesList() {
       <main>
         <h1>Notes</h1>
         <div>
-          <Button asChild>
-            <Link href="/notes/create">Create Note</Link>
-          </Button>
+          <CreateNewNoteDialog />
         </div>
         <ul>
           {notes.map((note) => (

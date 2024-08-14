@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { Tldraw, getSnapshot, useEditor } from "tldraw";
 import "tldraw/tldraw.css";
-import { Button } from "~/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 interface EditorProps {
   noteId: string;
