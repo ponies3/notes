@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { createNote } from "~/modules/notes/application/create/create";
-import { getNoteById } from "~/modules/notes/application/get/get";
+import {
+  getAllNotesTitle,
+  getNoteById,
+} from "~/modules/notes/application/get/get";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
@@ -17,11 +20,9 @@ export const notesRouter = createTRPCRouter({
       return getNoteById(input.id);
     }),
 
-  getLatest: publicProcedure.query(async ({ ctx }) => {
-    const post = await ctx.db.query.posts.findFirst({
-      orderBy: (posts, { desc }) => [desc(posts.createdAt)],
-    });
+  geAll: publicProcedure.query(async ({ ctx }) => {
+    const notes = await getAllNotesTitle();
 
-    return post ?? null;
+    return notes ?? [];
   }),
 });
