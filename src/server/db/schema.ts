@@ -28,3 +28,18 @@ export const posts = createTable(
     nameIndex: index("name_idx").on(example.name),
   })
 );
+
+export const notes = createTable(
+  "note",
+  {
+    id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+    title: text("title", { length: 256 }),
+    content: text("content"),
+    createdAt: int("created_at", { mode: "timestamp" })
+      .default(sql`(unixepoch())`)
+      .notNull(),
+    updatedAt: int("updated_at", { mode: "timestamp" }).$onUpdate(
+      () => new Date()
+    ),
+  }
+);
