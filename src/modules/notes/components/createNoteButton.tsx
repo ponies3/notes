@@ -12,16 +12,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { api } from "@/trpc/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function CreateNewNoteDialog() {
   const [title, setTitle] = useState("");
+  const router = useRouter();
   const newNote = api.notes.create.useMutation({
-    onSuccess: async ({ data }) => {
-      console.log(data);
+    onSuccess: async (noteId) => {
+      console.log(noteId?.id);
       setTitle("");
-      redirect(`/notes/edit?id=${data.id}`);
+      router.push(`/notes/edit?id=${noteId?.id}`, {});
     },
   });
 
@@ -59,7 +60,7 @@ export function CreateNewNoteDialog() {
             type="button"
             onClick={createNote}
           >
-            Create
+            {newNote.isPending ? "Creating Note" : "Create Note"}
           </Button>
         </DialogFooter>
       </DialogContent>
