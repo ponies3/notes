@@ -1,4 +1,4 @@
-import { Editor } from "@/modules/notes/pages/edit/edit";
+import { NoteEditor } from "@/modules/notes/pages/edit/edit";
 
 interface NotesEditorPageProps {
   searchParams: {
@@ -9,5 +9,5 @@ interface NotesEditorPageProps {
 export default function NotesEditorPage({
   searchParams,
 }: NotesEditorPageProps) {
-  return <Editor noteId={searchParams.id} />;
+  return <NoteEditor id={Number(searchParams.id)} />;
 }

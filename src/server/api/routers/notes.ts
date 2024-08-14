@@ -31,11 +31,10 @@ export const notesRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.number().nonnegative(),
-        title: z.string().min(1),
         content: z.string().optional(),
       }),
     )
     .mutation(async ({ input }) => {
-      await updateNote(input.id, input.title, input.content);
+      await updateNote(input.id, input.content);
     }),
 });
