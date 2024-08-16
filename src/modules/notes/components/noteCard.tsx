@@ -7,7 +7,7 @@ interface NoteCardProps {
 }
 export function NoteCard({ note }: NoteCardProps) {
   return (
-    <Card className="group">
+    <Card className="group hover:shadow-lg">
       <Link href={`/notes/edit?id=${note.id}`} key={note.id}>
         <div className="relative h-40 w-full overflow-hidden rounded-t-lg">
           {/* preview */}
@@ -15,7 +15,7 @@ export function NoteCard({ note }: NoteCardProps) {
         <CardContent className="p-4">
           <h3 className="text-lg font-semibold"> {note.title}</h3>
           <span className="text-sm text-muted-foreground">
-            {note.createdAt.toISOString()}
+            {note.createdAt.toDateString()}
           </span>
         </CardContent>
       </Link>
