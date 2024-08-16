@@ -34,7 +34,7 @@ export function EditTitleButton({ noteId }: { noteId: number }) {
     <Dialog>
       <DialogTrigger asChild>
         <div className="cursor-pointer">
-          <Pencil size={16} />
+          <Pencil size={24} />
         </div>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
