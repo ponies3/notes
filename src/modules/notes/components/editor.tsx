@@ -42,6 +42,7 @@ export function Editor({ note }: EditorProps) {
 }
 
 function SaveToolbar() {
+  const [firstRender, setFirstRender] = useState(true);
   const [updated, setUpdated] = useState(0);
   const editor = useEditor();
 
@@ -70,6 +71,10 @@ function SaveToolbar() {
   );
 
   useEffect(() => {
+    if (firstRender) {
+      setFirstRender(false);
+      return;
+    }
     const timeOutId = setTimeout(() => {
       save();
     }, 1000);
