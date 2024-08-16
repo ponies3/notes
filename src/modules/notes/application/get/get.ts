@@ -1,4 +1,5 @@
 import { db } from "@/server/db";
+import { Note } from "../../domain/note";
 
 export async function getNoteById(id: number) {
   return await db.query.notes.findFirst({
@@ -7,10 +8,13 @@ export async function getNoteById(id: number) {
 }
 
 export async function getAllNotesTitle() {
-  return await db.query.notes.findMany({
+  const notes = await db.query.notes.findMany({
     columns: {
       id: true,
       title: true,
+      createdAt: true,
     },
   });
+
+  return notes as Note[];
 }
