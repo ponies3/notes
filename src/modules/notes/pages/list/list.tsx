@@ -1,6 +1,8 @@
 import { api } from "@/trpc/server";
 import { CreateNewNoteDialog } from "../../components/createNoteButton";
-import { NoteCard } from "../../components/noteCard";
+import { NoteCard, NoteCardListSkeleton } from "../../components/noteCard";
+import { Suspense } from "react";
+import { NoteCardList } from "../../components/noteCardList";
 
 export async function NotesList() {
   const notes = await api.notes.geAll();
@@ -11,11 +13,9 @@ export async function NotesList() {
           <h2 className="text-2xl font-bold">My Notes</h2>
           <CreateNewNoteDialog />
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {notes.map((note) => (
-            <NoteCard key={note.id} note={note} />
-          ))}
-        </div>
+        <Suspense fallback={<NoteCardListSkeleton />}>
+          <NoteCardList />
+        </Suspense>
       </section>
     </main>
   );
