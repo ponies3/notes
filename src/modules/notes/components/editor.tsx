@@ -1,18 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import {
+  DefaultStylePanel,
+  DefaultStylePanelContent,
+  TLShape,
+  TLShapeId,
   Tldraw,
   createTLStore,
   getSnapshot,
   loadSnapshot,
   useEditor,
+  useRelevantStyles,
 } from "tldraw";
 import "tldraw/tldraw.css";
 import { Button } from "@/components/ui/button";
 import { api } from "@/trpc/react";
 import { useSearchParams } from "next/navigation";
 import { Note } from "../domain/note";
+import { RotateCcw, RotateCw } from "lucide-react";
+import { set } from "zod";
 
 interface EditorProps {
   note: Note;
@@ -36,6 +43,7 @@ export function Editor({ note, className }: EditorProps) {
         store={store}
         components={{
           SharePanel: SaveToolbar,
+          StylePanel: RotateOneShape,
         }}
       />
     </div>
@@ -51,9 +59,7 @@ function SaveToolbar() {
   const id = params.get("id");
 
   const updateNote = api.notes.save.useMutation({
-    onSuccess: () => {
-      console.log("Saved");
-    },
+    onSuccess: () => {},
   });
 
   const save = () => {
@@ -91,7 +97,7 @@ function SaveToolbar() {
   }, []);
 
   return (
-    <div className="h-fit w-full p-2">
+    <div className="flex h-fit w-full flex-row justify-end p-2">
       <Button
         className="pointer-events-auto"
         onClick={save}
@@ -100,5 +106,80 @@ function SaveToolbar() {
         {updateNote.isPending ? "Saving..." : "Save"}
       </Button>
     </div>
+  );
+}
+
+function RotateOneShape() {
+  const [shapeId, setShapeId] = useState<TLShapeId>();
+  const editor = useEditor();
+  const styles = useRelevantStyles();
+
+  useEffect(() => {
+    const isOneShape = editor.getSelectedShapeIds().length === 1;
+
+    if (!isOneShape) {
+      setShapeId(undefined);
+      return;
+    }
+
+    const shapeId = editor.getSelectedShapeIds()[0];
+
+    if (!shapeId) {
+      setShapeId(undefined);
+      return;
+    }
+
+    setShapeId(shapeId);
+  }, [editor.getSelectedShapeIds()]);
+
+  const rotateShape = (radiants: number) => {
+    if (!shapeId) {
+      return;
+    }
+    const shape = editor.getShape(shapeId);
+
+    if (!shape) {
+      return;
+    }
+
+    let newRotation = shape.rotation + radiants;
+
+    if (newRotation >= Math.PI * 2) {
+      newRotation = newRotation - Math.PI * 2;
+    }
+
+    if (newRotation < 0) {
+      newRotation = Math.PI * 2 + newRotation;
+    }
+
+    editor.updateShape({
+      id: shapeId,
+      rotation: shape.rotation - radiants,
+      type: shape.type,
+    });
+  };
+
+  if (!shapeId) {
+    return null;
+  }
+
+  return (
+    <DefaultStylePanel>
+      <DefaultStylePanelContent styles={styles} />
+      <div className={`flex h-fit w-full flex-row justify-between gap-2 p-2`}>
+        <Button
+          className="pointer-events-auto"
+          onClick={() => rotateShape(Math.PI / 2)}
+        >
+          <RotateCcw />
+        </Button>
+        <Button
+          className="pointer-events-auto"
+          onClick={() => rotateShape(-(Math.PI / 2))}
+        >
+          <RotateCw />
+        </Button>
+      </div>
+    </DefaultStylePanel>
   );
 }
