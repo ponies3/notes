@@ -19,3 +19,17 @@ export async function getAllNotesTitle() {
 
   return allNotes as Note[];
 }
+
+export async function getLast5NotesUpdated() {
+  const allNotes = await db.query.notes.findMany({
+    columns: {
+      id: true,
+      title: true,
+      updatedAt: true,
+    },
+    orderBy: (note, { desc }) => [desc(note.updatedAt)],
+    limit: 5,
+  });
+
+  return allNotes as Note[];
+}

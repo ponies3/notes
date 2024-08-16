@@ -2,6 +2,7 @@ import { z } from "zod";
 import { createNote } from "@/modules/notes/application/create/create";
 import {
   getAllNotesTitle,
+  getLast5NotesUpdated,
   getNoteById,
 } from "@/modules/notes/application/get/get";
 
@@ -24,6 +25,11 @@ export const notesRouter = createTRPCRouter({
 
   geAll: publicProcedure.query(async ({ ctx }) => {
     const notes = await getAllNotesTitle();
+    return notes ?? [];
+  }),
+
+  getLastUpdates: publicProcedure.query(async ({ ctx }) => {
+    const notes = await getLast5NotesUpdated();
 
     return notes ?? [];
   }),
