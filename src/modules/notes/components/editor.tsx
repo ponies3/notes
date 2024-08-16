@@ -14,7 +14,7 @@ import {
 import "tldraw/tldraw.css";
 import { Button } from "@/components/ui/button";
 import { api } from "@/trpc/react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Note } from "../domain/note";
 import { RotateCcw, RotateCw } from "lucide-react";
 
@@ -56,6 +56,7 @@ export function Editor({ note, className }: EditorProps) {
 
 function SaveToolbar() {
   const [firstRender, setFirstRender] = useState(true);
+  const router = useRouter();
   const [updated, setUpdated] = useState(0);
   const editor = useEditor();
 
@@ -70,10 +71,17 @@ function SaveToolbar() {
 
   const save = () => {
     const { document, session } = getSnapshot(editor.store);
-    updateNote.mutate({
-      id: Number(id),
-      content: JSON.stringify({ document, session }),
-    });
+    updateNote.mutate(
+      {
+        id: Number(id),
+        content: JSON.stringify({ document, session }),
+      },
+      {
+        onSuccess: () => {
+          router.refresh();
+        },
+      },
+    );
   };
 
   const unlisten = editor.store.listen(
