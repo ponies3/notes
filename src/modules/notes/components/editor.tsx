@@ -28,6 +28,7 @@ export function Editor({ note }: EditorProps) {
     loadSnapshot(newStore, snapshot);
     return newStore;
   });
+
   return (
     <div className="h-screen w-full">
       <Tldraw
@@ -41,14 +42,18 @@ export function Editor({ note }: EditorProps) {
 }
 
 function SaveToolbar() {
+  const [updated, setUpdated] = useState(0);
+  const editor = useEditor();
+
   const params = useSearchParams();
   const id = params.get("id");
-  const editor = useEditor();
+
   const updateNote = api.notes.save.useMutation({
     onSuccess: () => {
       console.log("Saved");
     },
   });
+
   const save = () => {
     const { document, session } = getSnapshot(editor.store);
     updateNote.mutate({
@@ -56,13 +61,27 @@ function SaveToolbar() {
       content: JSON.stringify({ document, session }),
     });
   };
+
+  const unlisten = editor.store.listen(
+    () => {
+      setUpdated(Date.now());
+    },
+    { scope: "document", source: "user" },
+  );
+
   useEffect(() => {
-    const unlisten = editor.store.listen(
-      (update) => {
-        console.log("update", update);
-      },
-      { scope: "document", source: "user" },
-    );
+    const timeOutId = setTimeout(() => {
+      save();
+    }, 1000);
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [updated]);
+
+  useEffect(() => {
+    return () => {
+      unlisten();
+    };
   }, []);
 
   return (
