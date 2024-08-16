@@ -1,6 +1,5 @@
 import { api } from "@/trpc/server";
 import { Editor } from "@/modules/notes/components/editor";
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { EditTitleButton } from "../../components/editTitlebutton";
 import { Header } from "@/components/header";
@@ -27,9 +26,7 @@ export async function NoteEditor({ id }: NoteEditorProps) {
         </div>
       </Header>
       <section className="container mx-auto h-full px-4 py-12 md:px-6">
-        <Suspense fallback="Loading...">
-          <Editor note={note} />
-        </Suspense>
+        <Editor note={note} />
       </section>
     </main>
   );
