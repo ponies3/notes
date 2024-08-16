@@ -32,7 +32,7 @@ export function CreateNewNoteDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Create new Note</Button>
+        <Button>Create new Note</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
