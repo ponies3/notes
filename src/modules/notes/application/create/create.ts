@@ -12,6 +12,6 @@ export async function createNote(title: string, content?: string) {
       content: content,
     })
     .returning({ id: notes.id });
-  revalidatePath("/notes");
+  revalidatePath("/notes", "page");
   return newNote[0] ?? null;
 }
