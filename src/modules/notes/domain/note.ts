@@ -5,3 +5,8 @@ export interface Note {
   title: string | null;
   content: string | null;
 }
+
+export interface NoteUpdateData {
+  title?: string;
+  content?: string;
+}

@@ -7,6 +7,7 @@ import {
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { updateNote } from "@/modules/notes/application/update/update";
+import { NoteUpdateData } from "@/modules/notes/domain/note";
 
 export const notesRouter = createTRPCRouter({
   create: publicProcedure
@@ -32,9 +33,17 @@ export const notesRouter = createTRPCRouter({
       z.object({
         id: z.number().nonnegative(),
         content: z.string().optional(),
+        title: z.string().optional(),
       }),
     )
     .mutation(async ({ input }) => {
-      await updateNote(input.id, input.content);
+      let noteData = {} as NoteUpdateData;
+      if (input.content) {
+        noteData.content = input.content;
+      }
+      if (input.title) {
+        noteData["title"] = input.title;
+      }
+      await updateNote(input.id, noteData);
     }),
 });
