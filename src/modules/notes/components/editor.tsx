@@ -34,6 +34,13 @@ export function Editor({ note, className }: EditorProps) {
     return newStore;
   });
 
+  useEffect(() => {
+    if (!note.content) {
+      return;
+    }
+    loadSnapshot(store, JSON.parse(note.content));
+  }, [note.id]);
+
   return (
     <div className={`h-full w-full ${className}`}>
       <Tldraw
@@ -55,6 +62,8 @@ function SaveToolbar() {
   const params = useSearchParams();
   const id = params.get("id");
 
+  const [noteId, setNoteId] = useState<number>(Number(id));
+
   const updateNote = api.notes.save.useMutation({
     onSuccess: () => {},
   });
@@ -75,8 +84,9 @@ function SaveToolbar() {
   );
 
   useEffect(() => {
-    if (firstRender) {
+    if (firstRender || noteId !== Number(id)) {
       setFirstRender(false);
+      setNoteId(Number(id));
       return;
     }
     const timeOutId = setTimeout(() => {
