@@ -110,32 +110,22 @@ function SaveToolbar() {
 }
 
 function RotateOneShape() {
-  const [shapeId, setShapeId] = useState<TLShapeId>();
   const editor = useEditor();
   const styles = useRelevantStyles();
 
-  useEffect(() => {
+  const rotateShape = (radiants: number) => {
     const isOneShape = editor.getSelectedShapeIds().length === 1;
 
     if (!isOneShape) {
-      setShapeId(undefined);
       return;
     }
 
     const shapeId = editor.getSelectedShapeIds()[0];
 
     if (!shapeId) {
-      setShapeId(undefined);
       return;
     }
 
-    setShapeId(shapeId);
-  }, [editor.getSelectedShapeIds()]);
-
-  const rotateShape = (radiants: number) => {
-    if (!shapeId) {
-      return;
-    }
     const shape = editor.getShape(shapeId);
 
     if (!shape) {
@@ -159,7 +149,7 @@ function RotateOneShape() {
     });
   };
 
-  if (!shapeId) {
+  if (editor.getSelectedShapeIds().length !== 1) {
     return null;
   }
 
