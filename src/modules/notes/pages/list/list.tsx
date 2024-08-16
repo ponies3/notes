@@ -1,8 +1,5 @@
-import { HydrateClient, api } from "@/trpc/server";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { api } from "@/trpc/server";
 import { CreateNewNoteDialog } from "../../components/createNoteButton";
-import Link from "next/link";
 import { NoteCard } from "../../components/noteCard";
 
 export async function NotesList() {
