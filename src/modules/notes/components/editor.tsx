@@ -1,11 +1,9 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DefaultStylePanel,
   DefaultStylePanelContent,
-  TLShape,
-  TLShapeId,
   Tldraw,
   createTLStore,
   getSnapshot,
@@ -19,7 +17,6 @@ import { api } from "@/trpc/react";
 import { useSearchParams } from "next/navigation";
 import { Note } from "../domain/note";
 import { RotateCcw, RotateCw } from "lucide-react";
-import { set } from "zod";
 
 interface EditorProps {
   note: Note;
