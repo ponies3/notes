@@ -16,9 +16,10 @@ import { Note } from "../domain/note";
 
 interface EditorProps {
   note: Note;
+  className?: string;
 }
 
-export function Editor({ note }: EditorProps) {
+export function Editor({ note, className }: EditorProps) {
   const [store] = useState(() => {
     const newStore = createTLStore();
     if (!note.content) {
@@ -30,7 +31,7 @@ export function Editor({ note }: EditorProps) {
   });
 
   return (
-    <div className="h-screen w-full">
+    <div className={`h-full w-full ${className}`}>
       <Tldraw
         store={store}
         components={{
