@@ -8,13 +8,14 @@ export async function getNoteById(id: number) {
 }
 
 export async function getAllNotesTitle() {
-  const notes = await db.query.notes.findMany({
+  const allNotes = await db.query.notes.findMany({
     columns: {
       id: true,
       title: true,
       createdAt: true,
     },
+    orderBy: (note, { desc }) => [desc(note.createdAt)],
   });
 
-  return notes as Note[];
+  return allNotes as Note[];
 }
