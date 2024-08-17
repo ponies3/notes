@@ -14,19 +14,26 @@ import { Label } from "@/components/ui/label";
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ErrorMessage } from "./errorMessage";
 
 export function CreateNewNoteDialog() {
   const [title, setTitle] = useState("");
+  const [isError, setIsError] = useState(false);
   const router = useRouter();
+
   const newNote = api.notes.create.useMutation({
     onSuccess: async (noteId) => {
-      console.log(noteId?.id);
+      if (!noteId || "error" in noteId) {
+        setIsError(true);
+        return;
+      }
       setTitle("");
       router.push(`/notes/edit?id=${noteId?.id}`, {});
     },
   });
 
   const createNote = () => {
+    setIsError(false);
     newNote.mutate({ title });
   };
   return (
@@ -53,6 +60,11 @@ export function CreateNewNoteDialog() {
               className="col-span-3"
             />
           </div>
+          {isError && (
+            <div className="col-span-4">
+              <ErrorMessage hideButton />
+            </div>
+          )}
         </div>
         <DialogFooter>
           <Button
