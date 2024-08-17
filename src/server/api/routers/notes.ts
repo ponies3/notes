@@ -13,7 +13,7 @@ import { NoteUpdateData } from "@/modules/notes/domain/note";
 export const notesRouter = createTRPCRouter({
   create: publicProcedure
     .input(z.object({ title: z.string().min(1) }))
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ input }) => {
       return await createNote(input.title);
     }),
 
@@ -23,12 +23,12 @@ export const notesRouter = createTRPCRouter({
       return getNoteById(input.id);
     }),
 
-  geAll: publicProcedure.query(async ({ ctx }) => {
+  geAll: publicProcedure.query(async () => {
     const notes = await getAllNotesTitle();
     return notes ?? [];
   }),
 
-  getLastUpdates: publicProcedure.query(async ({ ctx }) => {
+  getLastUpdates: publicProcedure.query(async () => {
     const notes = await getLast5NotesUpdated();
 
     return notes ?? [];
@@ -43,12 +43,12 @@ export const notesRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input }) => {
-      let noteData = {} as NoteUpdateData;
+      const noteData = {} as NoteUpdateData;
       if (input.content) {
         noteData.content = input.content;
       }
       if (input.title) {
-        noteData["title"] = input.title;
+        noteData.title = input.title;
       }
       return await updateNote(input.id, noteData);
     }),

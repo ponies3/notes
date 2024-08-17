@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {
   DefaultStylePanel,
   DefaultStylePanelContent,
+  TLStoreSnapshot,
   Tldraw,
   createTLStore,
   getSnapshot,
@@ -29,7 +30,7 @@ export function Editor({ note, className }: EditorProps) {
     if (!note.content) {
       return newStore;
     }
-    const snapshot = JSON.parse(note.content);
+    const snapshot = JSON.parse(note.content) as TLStoreSnapshot;
     loadSnapshot(newStore, snapshot);
     return newStore;
   });
@@ -38,7 +39,7 @@ export function Editor({ note, className }: EditorProps) {
     if (!note.content) {
       return;
     }
-    loadSnapshot(store, JSON.parse(note.content));
+    loadSnapshot(store, JSON.parse(note.content) as TLStoreSnapshot);
   }, [note.id]);
 
   return (
@@ -65,9 +66,7 @@ function SaveToolbar() {
 
   const [noteId, setNoteId] = useState<number>(Number(id));
 
-  const updateNote = api.notes.save.useMutation({
-    onSuccess: () => {},
-  });
+  const updateNote = api.notes.save.useMutation();
 
   const save = () => {
     const { document, session } = getSnapshot(editor.store);
