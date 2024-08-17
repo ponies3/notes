@@ -1,38 +1,76 @@
-# Create T3 App
+# Proyect Notes
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Description
 
-## What's next? How do I make an app with this?
+Simple notes application. In it you can create, save and modify your notes using the editor with a variety of tools.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Technologies Used
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- Next.js
+- tRPC
+- Drizzle
+- Tailwind
+- SQLite
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Installation
 
-## Learn More
+Follow these steps to install and configure the project:
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+1. Clone the repository: https://github.com/ponies3/notes.git
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+2. Navigate into the project directory
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+3. Install the dependencies
 
-## How do I deploy this?
+```
+npm i
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+4. Initializes the database
 
--------
-Se ha creado el proyecto con T3 https://create.t3.gg/
-Se han istalado los siguentes paquetes:
- - nextjs
- - trpc
- - drizzle
- - tailwind
- - sqlite
+```
+npm run db:push
+```
+
+5. Start the development server in port 3000
+
+```
+npm run dev
+```
+
+## Folder Configuration
+
+- In the app folder is the nextjs "app router" with the pages, routes and layouts.
+- In the servers folder is the configuration of the database and its entities and the api routes.
+- In the trpc folder is the configuration of the trpc server and react clients.
+- In the styles folder are the global styles.
+- In the components folder are the reusable components of the application.
+- In the modules folder are the different modules of the application (in this case only notes).this folder is divided into:
+  - pages: main pages of the module (containers).
+  - components: common components of the module.
+  - domain: models, classes and domain interfaces.
+  - application: the different usecase of the module.
+
+## Implemented functionalities
+
+On the main page, an aside with the history of the last five modified notes is displayed on the left side.
+
+On the main page, the list of all the created notes ordered by creation date.
+
+On the top right side, a button to create a new note is displayed.
+
+Whether clicking on a note or creating a new one, you are taken to the editing page.
+
+On it, you can still see the aside with the history, a header with the title of the note (editable) and the tldraw editor.
+
+A save button has been added to the editor on the top right side. This button creates a store snapshot and saves it in the database. On the other hand, a listener has been created that detects changes in the store and saves them after one second without modifications.
+
+In the style editor, buttons have been added to rotate a shape 90 degrees to the right or left.
+
+## Considerations
+
+Errors have been handled in the backend without exceptions. The ErrorMessage object is sent to the front and an error message is displayed.
+
+All components are SSR except the editor, buttons with dialog and error message.
+
+For the loading of the list of notes, skeletons have been created while they are being loaded and the html streaming is used to load the page faster.
