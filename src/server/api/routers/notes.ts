@@ -50,6 +50,6 @@ export const notesRouter = createTRPCRouter({
       if (input.title) {
         noteData["title"] = input.title;
       }
-      await updateNote(input.id, noteData);
+      return await updateNote(input.id, noteData);
     }),
 });

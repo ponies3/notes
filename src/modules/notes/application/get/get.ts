@@ -1,5 +1,6 @@
 import { db } from "@/server/db";
 import { Note } from "../../domain/note";
+import { ErrorMessages } from "@/server/domain/error";
 
 export async function getNoteById(id: number) {
   return await db.query.notes.findFirst({
@@ -7,29 +8,49 @@ export async function getNoteById(id: number) {
   });
 }
 
-export async function getAllNotesTitle() {
-  const allNotes = await db.query.notes.findMany({
-    columns: {
-      id: true,
-      title: true,
-      createdAt: true,
-    },
-    orderBy: (note, { desc }) => [desc(note.createdAt)],
-  });
+export async function getAllNotesTitle(): Promise<Note[] | ErrorMessages> {
+  const allNotes = await db.query.notes
+    .findMany({
+      columns: {
+        id: true,
+        title: true,
+        createdAt: true,
+      },
+      orderBy: (note, { desc }) => [desc(note.createdAt)],
+    })
+    .catch((error) => {
+      console.error(error);
+      return {
+        error: true,
+        type: "database",
+        module: "notes",
+        message: "Error getting getAllNotesTitle",
+      } as ErrorMessages;
+    });
 
   return allNotes as Note[];
 }
 
-export async function getLast5NotesUpdated() {
-  const allNotes = await db.query.notes.findMany({
-    columns: {
-      id: true,
-      title: true,
-      updatedAt: true,
-    },
-    orderBy: (note, { desc }) => [desc(note.updatedAt)],
-    limit: 5,
-  });
+export async function getLast5NotesUpdated(): Promise<Note[] | ErrorMessages> {
+  const allNotes = await db.query.notes
+    .findMany({
+      columns: {
+        id: true,
+        title: true,
+        updatedAt: true,
+      },
+      orderBy: (note, { desc }) => [desc(note.updatedAt)],
+      limit: 5,
+    })
+    .catch((error) => {
+      console.error(error);
+      return {
+        error: true,
+        type: "database",
+        module: "notes",
+        message: "Error getting getLast5NotesUpdated",
+      } as ErrorMessages;
+    });
 
   return allNotes as Note[];
 }
