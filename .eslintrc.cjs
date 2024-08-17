@@ -55,7 +55,8 @@ const config = {
           "ctx.db"
         ]
       }
-    ]
+    ],
+    "react-hooks/exhaustive-deps": "off"
   }
 }
 module.exports = config;

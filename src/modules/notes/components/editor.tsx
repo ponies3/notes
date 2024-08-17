@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import {
   DefaultStylePanel,
   DefaultStylePanelContent,
-  TLStoreSnapshot,
+  type TLStoreSnapshot,
   Tldraw,
   createTLStore,
   getSnapshot,
@@ -16,7 +16,7 @@ import "tldraw/tldraw.css";
 import { Button } from "@/components/ui/button";
 import { api } from "@/trpc/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Note } from "../domain/note";
+import { type Note } from "@/modules/notes/domain/note";
 import { RotateCcw, RotateCw } from "lucide-react";
 
 interface EditorProps {

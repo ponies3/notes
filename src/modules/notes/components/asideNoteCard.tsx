@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { Note } from "../domain/note";
+import { type Note } from "@/modules/notes/domain/note";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 

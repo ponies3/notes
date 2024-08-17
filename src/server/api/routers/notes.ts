@@ -8,7 +8,7 @@ import {
 
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { updateNote } from "@/modules/notes/application/update/update";
-import { NoteUpdateData } from "@/modules/notes/domain/note";
+import { type NoteUpdateData } from "@/modules/notes/domain/note";
 
 export const notesRouter = createTRPCRouter({
   create: publicProcedure

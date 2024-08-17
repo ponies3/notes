@@ -1,6 +1,6 @@
 import { db } from "@/server/db";
-import { Note } from "../../domain/note";
-import { ErrorMessages } from "@/server/domain/error";
+import { type Note } from "@/modules/notes/domain/note";
+import { type ErrorMessages } from "@/server/domain/error";
 
 export async function getNoteById(id: number) {
   return await db.query.notes.findFirst({

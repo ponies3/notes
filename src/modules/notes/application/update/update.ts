@@ -3,9 +3,9 @@
 import { db } from "@/server/db";
 import { notes } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
-import { NoteUpdateData } from "../../domain/note";
+import { type NoteUpdateData } from "@/modules/notes/domain/note";
 import { revalidatePath } from "next/cache";
-import { ErrorMessages } from "@/server/domain/error";
+import { type ErrorMessages } from "@/server/domain/error";
 
 export async function updateNote(
   id: number,

@@ -2,7 +2,7 @@
 
 import { db } from "@/server/db";
 import { notes } from "@/server/db/schema";
-import { ErrorMessages } from "@/server/domain/error";
+import type { ErrorMessages } from "@/server/domain/error";
 import { revalidatePath } from "next/cache";
 
 export async function createNote(
