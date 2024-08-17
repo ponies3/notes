@@ -164,10 +164,6 @@ function RotateOneShape() {
     });
   };
 
-  if (editor.getSelectedShapeIds().length !== 1) {
-    return null;
-  }
-
   return (
     <DefaultStylePanel>
       <DefaultStylePanelContent styles={styles} />
