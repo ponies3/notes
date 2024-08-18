@@ -11,9 +11,13 @@ export function ErrorMessage({ hideButton }: ErrorMessageProps) {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full flex-col items-center justify-center gap-8">
       <h3>Sorry, something went wrong. Please try again.</h3>
-      {!hideButton && <Button onClick={router.refresh}>Try again</Button>}
+      {!hideButton && (
+        <Button className="w-fit" onClick={router.refresh}>
+          Try again
+        </Button>
+      )}
     </div>
   );
 }
