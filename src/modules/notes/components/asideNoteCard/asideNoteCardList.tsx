@@ -9,6 +9,14 @@ export async function AsideNoteCardList() {
     return <ErrorMessage hideButton />;
   }
 
+  if (notes.length === 0) {
+    return (
+      <div className="flex w-full flex-col items-start justify-center gap-8">
+        <h3>No notes modified</h3>
+      </div>
+    );
+  }
+
   const renderNote = (note: (typeof notes)[0]) => {
     return <AsideNoteCard key={note.id} note={note} />;
   };
