@@ -1,4 +1,3 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { type Note } from "@/modules/notes/domain/note";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
@@ -19,26 +18,5 @@ export function AsideNoteCard({ note }: AsideNoteCardProps) {
         </CardContent>
       </Link>
     </Card>
-  );
-}
-
-export function NoteCardSkeleton() {
-  return (
-    <div className="flex h-[100px] animate-pulse flex-col items-start justify-between gap-2 rounded-md border-2 border-muted p-2">
-      <Skeleton className="h-6 w-1/2 rounded-lg" />
-      <Skeleton className="h-6 w-full rounded-lg" />
-    </div>
-  );
-}
-
-export function NoteCardListSkeleton() {
-  const items = Array.from({ length: 8 });
-
-  return (
-    <>
-      {items.map((_, index) => (
-        <NoteCardSkeleton key={index} />
-      ))}
-    </>
   );
 }

@@ -1,4 +1,5 @@
-import { AsideNoteCardList } from "@/modules/notes/components/asideNoteCardList";
+import { AsideNoteCardList } from "@/modules/notes/components/asideNoteCard/asideNoteCardList";
+import { AsideNoteCardListSkeleton } from "@/modules/notes/components/asideNoteCard/asideNoteCardListSkeleton";
 import { History } from "lucide-react";
 import { Suspense } from "react";
 
@@ -10,7 +11,7 @@ export function Aside() {
       <h2 className="flex items-center gap-1 text-base font-bold">
         <History size={20} /> Modified notes history
       </h2>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<AsideNoteCardListSkeleton />}>
         <AsideNoteCardList />
       </Suspense>
     </aside>

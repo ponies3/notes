@@ -1,6 +1,6 @@
 import { api } from "@/trpc/server";
-import { AsideNoteCard } from "./asideNoteCard";
-import { ErrorMessage } from "./errorMessage";
+import { AsideNoteCard } from "@/modules/notes/components/asideNoteCard/asideNoteCard";
+import { ErrorMessage } from "@/modules/notes/components/errorMessage";
 
 export async function AsideNoteCardList() {
   const notes = await api.notes.getLastUpdates();
