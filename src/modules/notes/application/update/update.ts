@@ -13,12 +13,11 @@ export async function updateNote(
 ): Promise<void | ErrorMessages> {
   const result = await db
     .update(notes)
-    .set({
-      ...data,
-    })
+    .set(data)
     .where(eq(notes.id, id))
     .catch((error) => {
       console.error(error);
+
       return {
         error: true,
         type: "database",
@@ -26,8 +25,10 @@ export async function updateNote(
         message: "Error updating note",
       } as ErrorMessages;
     });
+
   if ("error" in result) {
     return result;
   }
+
   revalidatePath("/notes", "layout");
 }

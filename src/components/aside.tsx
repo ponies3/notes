@@ -2,7 +2,7 @@ import { AsideNoteCardList } from "@/modules/notes/components/asideNoteCardList"
 import { History } from "lucide-react";
 import { Suspense } from "react";
 
-export async function Aside() {
+export function Aside() {
   return (
     <aside
       className={`mx-auto hidden h-screen w-72 flex-col gap-2 overflow-y-auto bg-zinc-100 px-4 py-12 md:px-6 lg:flex`}

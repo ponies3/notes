@@ -1,5 +1,3 @@
-"use server";
-
 import { db } from "@/server/db";
 import { notes } from "@/server/db/schema";
 import type { ErrorMessages } from "@/server/domain/error";
@@ -18,6 +16,7 @@ export async function createNote(
     .returning({ id: notes.id })
     .catch((error) => {
       console.error(error);
+
       return {
         error: true,
         type: "database",

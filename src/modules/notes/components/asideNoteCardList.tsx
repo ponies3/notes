@@ -9,11 +9,9 @@ export async function AsideNoteCardList() {
     return <ErrorMessage hideButton />;
   }
 
-  return (
-    <>
-      {notes.map((note) => (
-        <AsideNoteCard key={note.id} note={note} />
-      ))}
-    </>
-  );
+  const renderNote = (note: (typeof notes)[0]) => {
+    return <AsideNoteCard key={note.id} note={note} />;
+  };
+
+  return <>{notes.map(renderNote)}</>;
 }

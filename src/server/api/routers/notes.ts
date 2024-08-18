@@ -44,12 +44,14 @@ export const notesRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       const noteData = {} as NoteUpdateData;
+
       if (input.content) {
         noteData.content = input.content;
       }
       if (input.title) {
         noteData.title = input.title;
       }
+
       return await updateNote(input.id, noteData);
     }),
 });

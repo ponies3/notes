@@ -30,6 +30,7 @@ export function EditTitleButton({ noteId }: { noteId: number }) {
   const updateNoteTitleHandler = () => {
     updateNoteTitle.mutate({ id: noteId, title });
   };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
