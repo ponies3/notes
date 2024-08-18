@@ -51,26 +51,43 @@ npm run dev
   - domain: models, classes and domain interfaces.
   - application: the different usecase of the module.
 
-## Implemented functionalities
+## Implemented Functionalities
 
-On the main page, an aside with the history of the last five modified notes is displayed on the left side.
+- **Recent Notes Sidebar**:
 
-On the main page, the list of all the created notes ordered by creation date.
+  - The main page features a sidebar on the left that displays the five most recently modified notes for quick access.
 
-On the top right side, a button to create a new note is displayed.
+- **Note List**:
 
-Whether clicking on a note or creating a new one, you are taken to the editing page.
+  - A chronological list of all created notes is available on the main page, ordered by their creation date.
 
-On it, you can still see the aside with the history, a header with the title of the note (editable) and the tldraw editor.
+- **New Note Button**:
 
-A save button has been added to the editor on the top right side. This button creates a store snapshot and saves it in the database. On the other hand, a listener has been created that detects changes in the store and saves them after one second without modifications.
+  - A button in the top right corner of the main page allows users to quickly create a new note.
 
-In the style editor, buttons have been added to rotate a shape 90 degrees to the right or left.
+- **Search Functionality**:
+
+  - An SSR-based search input is located on the top left side of the main page, enabling users to search notes via URL search parameters.
+
+- **Note Editing**:
+
+  - When clicking on a note or creating a new one, the user is redirected to the note editing page, which includes:
+    - The recent notes sidebar.
+    - A header with the note's title, which is editable, back button and delete button.
+    - The tldraw editor for content creation.
+
+- **Save Mechanism**:
+
+  - A "Save" button has been added to the top right corner of the editor, allowing users to take a snapshot of the current state and save it to the database.
+  - Additionally, an automatic save feature detects changes in the editor and saves them if no further modifications are made within one second.
+
+- **Shape Rotation**:
+  - In the style editor, buttons have been added to rotate shapes 90 degrees to the right or left, offering greater design flexibility.
 
 ## Considerations
 
 Errors have been handled in the backend without exceptions. The ErrorMessage object is sent to the front and an error message is displayed.
 
-All components are SSR except the editor, buttons with dialog and error message.
+All components are SSR except the editor, searcher, buttons with dialog and error message.
 
 For the loading of the list of notes, skeletons have been created while they are being loaded and the html streaming is used to load the page faster.
