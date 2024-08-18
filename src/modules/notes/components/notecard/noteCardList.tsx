@@ -1,6 +1,6 @@
 import { api } from "@/trpc/server";
 import { NoteCard } from "./noteCard";
-import { ErrorMessage } from "./errorMessage";
+import { ErrorMessage } from "../errorMessage";
 
 export async function NoteCardList() {
   const notes = await api.notes.geAll();

@@ -1,7 +1,7 @@
 import { CreateNewNoteDialog } from "../../components/createNoteButton";
-import { NoteCardListSkeleton } from "../../components/noteCard";
+import { NoteCardListSkeleton } from "../../components/notecard/noteCard";
 import { Suspense } from "react";
-import { NoteCardList } from "../../components/noteCardList";
+import { NoteCardList } from "../../components/notecard/noteCardList";
 import { NotebookText } from "lucide-react";
 
 export async function NotesList() {
