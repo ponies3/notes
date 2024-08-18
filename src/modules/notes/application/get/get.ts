@@ -1,12 +1,13 @@
 import { db } from "@/server/db";
 import { type Note } from "@/modules/notes/domain/note";
 import { type ErrorMessages } from "@/server/domain/error";
+import { cache } from "react";
 
-export async function getNoteById(id: number) {
-  return await db.query.notes.findFirst({
+export const getNoteById = cache((id: number) => {
+  return db.query.notes.findFirst({
     where: (note, { eq }) => eq(note.id, id),
   });
-}
+});
 
 export async function getAllNotesTitle(): Promise<Note[] | ErrorMessages> {
   const allNotes = await db.query.notes
@@ -20,6 +21,7 @@ export async function getAllNotesTitle(): Promise<Note[] | ErrorMessages> {
     })
     .catch((error) => {
       console.error(error);
+
       return {
         error: true,
         type: "database",
@@ -44,6 +46,7 @@ export async function getLast5NotesUpdated(): Promise<Note[] | ErrorMessages> {
     })
     .catch((error) => {
       console.error(error);
+
       return {
         error: true,
         type: "database",

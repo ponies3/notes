@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -27,8 +28,9 @@ export function CreateNewNoteDialog() {
         setIsError(true);
         return;
       }
+
       setTitle("");
-      router.push(`/notes/edit?id=${noteId?.id}`, {});
+      router.push(`/notes/edit/${noteId?.id}`);
     },
   });
 
@@ -36,6 +38,7 @@ export function CreateNewNoteDialog() {
     setIsError(false);
     newNote.mutate({ title });
   };
+
   return (
     <Dialog>
       <DialogTrigger asChild>

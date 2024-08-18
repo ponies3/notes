@@ -9,10 +9,7 @@ interface NoteCardProps {
 export function NoteCard({ note }: NoteCardProps) {
   return (
     <Card className="hover:shadow-lg">
-      <Link href={`/notes/edit?id=${note.id}`} key={note.id}>
-        {/* <div className="relative h-40 w-full overflow-hidden rounded-t-lg">
-          Aqui iria una preview.
-        </div> */}
+      <Link href={`/notes/edit/${note?.id}`} key={note.id}>
         <CardContent className="p-4">
           <h3 className="truncate text-lg font-semibold"> {note.title}</h3>
           <span className="text-sm text-muted-foreground">
@@ -35,6 +32,7 @@ export function NoteCardSkeleton() {
 
 export function NoteCardListSkeleton() {
   const items = Array.from({ length: 8 });
+
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {items.map((_, index) => (
