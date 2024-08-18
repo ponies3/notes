@@ -9,6 +9,7 @@ import {
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { updateNote } from "@/modules/notes/application/update/update";
 import { type NoteUpdateData } from "@/modules/notes/domain/note";
+import { deleteNote } from "@/modules/notes/application/delete/delete";
 
 export const notesRouter = createTRPCRouter({
   create: publicProcedure
@@ -55,5 +56,10 @@ export const notesRouter = createTRPCRouter({
       }
 
       return await updateNote(input.id, noteData);
+    }),
+  delete: publicProcedure
+    .input(z.object({ id: z.number().nonnegative() }))
+    .mutation(async ({ input }) => {
+      await deleteNote(input.id);
     }),
 });
