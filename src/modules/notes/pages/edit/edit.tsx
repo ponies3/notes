@@ -23,7 +23,10 @@ export async function NoteEditor({ id }: NoteEditorProps) {
           <BackButton href="/notes" />
           <div className="flex w-full max-w-[200px] flex-row items-center justify-center gap-2 md:max-w-[600px] xl:max-w-[900px] 2xl:max-w-[1100px]">
             <h2 className="truncate">{note.title}</h2>
-            <EditTitleButton noteId={note.id} />
+            <EditTitleButton
+              noteId={note.id}
+              previousTitle={note.title ?? ""}
+            />
           </div>
           <DeleteNoteButton noteId={note.id} />
         </div>

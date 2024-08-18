@@ -16,8 +16,16 @@ import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function EditTitleButton({ noteId }: { noteId: number }) {
-  const [title, setTitle] = useState("");
+interface EditTitleButtonProps {
+  noteId: number;
+  previousTitle: string;
+}
+
+export function EditTitleButton({
+  noteId,
+  previousTitle,
+}: EditTitleButtonProps) {
+  const [title, setTitle] = useState(previousTitle);
   const router = useRouter();
 
   const updateNoteTitle = api.notes.save.useMutation({
