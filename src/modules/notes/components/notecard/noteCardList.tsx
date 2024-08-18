@@ -2,8 +2,8 @@ import { api } from "@/trpc/server";
 import { NoteCard } from "./noteCard";
 import { ErrorMessage } from "../errorMessage";
 
-export async function NoteCardList() {
-  const notes = await api.notes.geAll();
+export async function NoteCardList({ search }: { search?: string }) {
+  const notes = await api.notes.search({ search });
 
   if ("error" in notes) {
     return <ErrorMessage />;

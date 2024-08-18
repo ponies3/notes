@@ -9,16 +9,16 @@ interface SearcherProps {
 }
 
 export function Searcher({ className }: SearcherProps) {
-  const [search, setSearch] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search") ?? "";
+  const [search, setSearch] = useState(searchQuery);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       const query = search ? `?search=${search}` : "";
       router.push(`/notes${query}`);
-    }, 500);
+    }, 300);
 
     return () => {
       clearTimeout(timeout);
@@ -28,7 +28,6 @@ export function Searcher({ className }: SearcherProps) {
   return (
     <Input
       className={className}
-      defaultValue={searchQuery}
       value={search}
       onChange={(e) => setSearch(e.target.value)}
       placeholder="Find your notes..."

@@ -9,6 +9,31 @@ export const getNoteById = cache((id: number) => {
   });
 });
 
+export async function searchNotes(
+  search?: string,
+): Promise<Note[] | ErrorMessages> {
+  if (!search) {
+    return getAllNotesTitle();
+  }
+
+  const notes = await db.query.notes
+    .findMany({
+      where: (note, { like }) => like(note.title, `%${search}%`),
+    })
+    .catch((error) => {
+      console.error(error);
+
+      return {
+        error: true,
+        type: "database",
+        module: "notes",
+        message: "Error getting searchNotes",
+      } as ErrorMessages;
+    });
+
+  return notes as Note[];
+}
+
 export async function getAllNotesTitle(): Promise<Note[] | ErrorMessages> {
   const allNotes = await db.query.notes
     .findMany({
