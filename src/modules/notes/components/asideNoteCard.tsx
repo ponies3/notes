@@ -6,16 +6,13 @@ import Link from "next/link";
 interface AsideNoteCardProps {
   note: Note;
 }
+
 export function AsideNoteCard({ note }: AsideNoteCardProps) {
   return (
     <Card className="hover:shadow-lg">
-      <Link href={`/notes/edit?id=${note.id}`} key={note.id}>
-        <CardContent className="p-4">
-          <h3 className="truncate text-lg font-semibold"> {note.title}</h3>
-          <span className="text-sm font-bold text-gray-500">
-            Last updated:{" "}
-          </span>
-          <br />
+      <Link href={`/notes/edit/${note.id}`}>
+        <CardContent className="p-3">
+          <h3 className="truncate text-base font-semibold"> {note.title}</h3>
           <span className="text-sm text-muted-foreground">
             {note.updatedAt?.toLocaleString()}
           </span>
@@ -36,6 +33,7 @@ export function NoteCardSkeleton() {
 
 export function NoteCardListSkeleton() {
   const items = Array.from({ length: 8 });
+
   return (
     <>
       {items.map((_, index) => (

@@ -1,5 +1,5 @@
 import { api } from "@/trpc/server";
-import { Editor } from "@/modules/notes/components/editor";
+import { Editor } from "@/modules/notes/components/editor/editor";
 import { notFound } from "next/navigation";
 import { EditTitleButton } from "../../components/editTitlebutton";
 import { Header } from "@/components/header";
@@ -14,8 +14,9 @@ export async function NoteEditor({ id }: NoteEditorProps) {
   if (!note) {
     return notFound();
   }
+
   return (
-    <main className="h-[90vh]">
+    <main className="h-full">
       <Header>
         <div className="relative flex w-full items-center justify-center gap-2 pl-20 text-4xl font-bold">
           <BackButton className="absolute left-0" href="/notes" />
@@ -25,7 +26,7 @@ export async function NoteEditor({ id }: NoteEditorProps) {
           </div>
         </div>
       </Header>
-      <section className="container mx-auto h-full px-4 py-12 md:px-6">
+      <section className="h-[calc(100vh-56px)] border-2 shadow">
         <Editor note={note} />
       </section>
     </main>
