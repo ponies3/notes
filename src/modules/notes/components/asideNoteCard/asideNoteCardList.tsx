@@ -10,11 +10,7 @@ export async function AsideNoteCardList() {
   }
 
   if (notes.length === 0) {
-    return (
-      <div className="flex w-full flex-col items-start justify-center gap-8">
-        <h3>No notes modified</h3>
-      </div>
-    );
+    return <p>No notes modified</p>;
   }
 
   const renderNote = (note: (typeof notes)[0]) => {
