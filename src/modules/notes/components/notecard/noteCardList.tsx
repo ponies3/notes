@@ -10,12 +10,14 @@ export async function NoteCardList({ search }: { search?: string }) {
   }
 
   if (search && notes.length === 0) {
-    return <div className="text-center">No notes found</div>;
+    return <p className="text-center text-lg">No notes found</p>;
   }
 
   if (notes.length === 0) {
     return (
-      <div className="text-center">No notes yet, create your first Note!!</div>
+      <p className="text-center text-lg">
+        No notes yet, create your first Note!!
+      </p>
     );
   }
 
