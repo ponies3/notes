@@ -9,6 +9,16 @@ export async function NoteCardList({ search }: { search?: string }) {
     return <ErrorMessage />;
   }
 
+  if (search && notes.length === 0) {
+    return <div className="text-center">No notes found</div>;
+  }
+
+  if (notes.length === 0) {
+    return (
+      <div className="text-center">No notes yet, create your first Note!!</div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {notes.map((note) => (
