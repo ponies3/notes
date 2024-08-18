@@ -25,6 +25,7 @@ export function DeleteNoteButton({ noteId }: DeleteNoteButtonProps) {
   const deleteNote = api.notes.delete.useMutation({
     onSuccess: () => {
       router.replace("/notes");
+      router.refresh();
     },
   });
 
