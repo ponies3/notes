@@ -9,6 +9,5 @@ interface NotesListPageProps {
 export default function NotesListPage({
   searchParams: { search },
 }: NotesListPageProps) {
-  console.log(search);
   return <NotesList search={search} />;
 }
