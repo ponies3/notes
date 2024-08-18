@@ -21,7 +21,7 @@ export async function NoteEditor({ id }: NoteEditorProps) {
       <Header>
         <div className="flex w-full items-center justify-between gap-2 pr-4 text-4xl font-bold">
           <BackButton href="/notes" />
-          <div className="flex w-full flex-row items-center justify-center gap-2 md:max-w-[600px] xl:max-w-[900px] 2xl:max-w-[1100px]">
+          <div className="flex w-full max-w-[200px] flex-row items-center justify-center gap-2 md:max-w-[600px] xl:max-w-[900px] 2xl:max-w-[1100px]">
             <h2 className="truncate">{note.title}</h2>
             <EditTitleButton noteId={note.id} />
           </div>
