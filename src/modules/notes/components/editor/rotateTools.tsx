@@ -9,6 +9,7 @@ import {
 
 const ROTATE_LEFT = -Math.PI / 2;
 const ROTATE_RIGHT = Math.PI / 2;
+const ONE_ROTATION = Math.PI * 2;
 
 export function RotateOneShape() {
   const editor = useEditor();
@@ -32,12 +33,12 @@ export function RotateOneShape() {
 
     let newRotation = shape.rotation + radiants;
 
-    if (newRotation >= Math.PI * 2) {
-      newRotation = newRotation - Math.PI * 2;
+    if (newRotation >= ONE_ROTATION) {
+      newRotation = newRotation - ONE_ROTATION;
     }
 
     if (newRotation < 0) {
-      newRotation = Math.PI * 2 + newRotation;
+      newRotation = ONE_ROTATION + newRotation;
     }
 
     editor.updateShape({
