@@ -1,7 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { type Note } from "../../domain/note";
 import Link from "next/link";
-import { Skeleton } from "@/components/ui/skeleton";
 
 interface NoteCardProps {
   note: Note;
